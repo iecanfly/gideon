@@ -91,12 +91,12 @@ tee -a /etc/trojan/config.json > /dev/null <<EOT
         "fast_open_qlen": 20
     },
     "mysql": {
-        "enabled": false,
+        "enabled": true,
         "server_addr": "127.0.0.1",
         "server_port": 3306,
         "database": "trojan",
         "username": "trojan",
-        "password": "",
+        "password": "trojan_Gideon",
         "key": "",
         "cert": "",
         "ca": ""
