@@ -24,10 +24,6 @@ apt install certbot python3-certbot-nginx -y
 certbot run -n --nginx --agree-tos -d $1.$2 -m iecanfly@gmail.com --redirect
 chmod -R +rx /etc/letsencrypt
 
-# Install MySql
-apt install mysql-server -y
-systemctl start mysql.service
-
 # Install trojan
 rm /etc/systemd/system/trojan.service
 apt install trojan -y
@@ -96,7 +92,7 @@ tee -a /etc/trojan/config.json > /dev/null <<EOT
         "fast_open_qlen": 20
     },
     "mysql": {
-        "enabled": true,
+        "enabled": false,
         "server_addr": "127.0.0.1",
         "server_port": 3306,
         "database": "trojan",
