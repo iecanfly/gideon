@@ -4,7 +4,7 @@
 apt update -y && apt install nginx -y
 systemctl enable nginx
 systemctl start nginx
-sed -i 's/server_name _;/server_name $1.fruitslist.xyz;/g' /etc/nginx/sites-available/default
+sed -i 's/server_name _;/server_name $1.$2;/g' /etc/nginx/sites-available/default
 nginx -t
 systemctl restart nginx
 systemctl status nginx
@@ -20,7 +20,7 @@ cp -rf sample-blog-master/html/* /var/www/html/
 # Install certificate
 # Before this step, DNS record should be there in advance.
 apt install certbot python3-certbot-nginx -y
-certbot run -n --nginx --agree-tos -d $1.fruitslist.xyz -m iecanfly@gmail.com --redirect
+certbot run -n --nginx --agree-tos -d $1.$2 -m iecanfly@gmail.com --redirect
 chmod -R +rx /etc/letsencrypt
 
 # Install trojan
@@ -104,8 +104,8 @@ tee -a /etc/trojan/config.json > /dev/null <<EOT
 }
 EOT
 
-sed -i "s/\/path\/to\/certificate.crt/\/etc\/letsencrypt\/live\/$1.fruitslist.xyz\/fullchain.pem/g" /etc/trojan/config.json
-sed -i "s/\/path\/to\/private.key/\/etc\/letsencrypt\/live\/$1.fruitslist.xyz\/privkey.pem/g" /etc/trojan/config.json
+sed -i "s/\/path\/to\/certificate.crt/\/etc\/letsencrypt\/live\/$1.$2\/fullchain.pem/g" /etc/trojan/config.json
+sed -i "s/\/path\/to\/private.key/\/etc\/letsencrypt\/live\/$1.$2\/privkey.pem/g" /etc/trojan/config.json
 
 # Open ports
 ufw allow 443
