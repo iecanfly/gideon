@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Install nginx
-apt update -y && apt install nginx -y
+apt update -y && apt upgrade -y
+apt install nginx -y
 systemctl enable nginx
 systemctl start nginx
 sed -i "s/server_name _;/server_name $1.$2;/g" /etc/nginx/sites-available/default
