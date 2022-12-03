@@ -23,6 +23,10 @@ apt install certbot python3-certbot-nginx -y
 certbot run -n --nginx --agree-tos -d $1.$2 -m iecanfly@gmail.com --redirect
 chmod -R +rx /etc/letsencrypt
 
+# Install MySql
+apt install mysql-server -y
+systemctl start mysql.service
+
 # Install trojan
 rm /etc/systemd/system/trojan.service
 apt install trojan -y
