@@ -21,7 +21,7 @@ cp -rf sample-blog-master/html/* /var/www/html/
 # Install certificate
 # Before this step, DNS record should be there in advance.
 apt install certbot python3-certbot-nginx -y
-certbot run -n --nginx --agree-tos -d $1.$2 -m iecanfly@gmail.com --redirect
+certbot run -n --nginx --agree-tos -d "$1.$2" -m iecanfly@gmail.com --redirect
 chmod -R +rx /etc/letsencrypt
 
 # Install trojan
