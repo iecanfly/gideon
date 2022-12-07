@@ -11,9 +11,10 @@ systemctl restart nginx
 systemctl status nginx
 
 # Install camouflage website
+
 apt install zip unzip -y
-rm master.zip
-rm sample-blog-master
+rm -rf master.zip
+rm -rf sample-blog-master
 wget https://github.com/arcdetri/sample-blog/archive/master.zip
 unzip master.zip
 cp -rf sample-blog-master/html/* /var/www/html/
