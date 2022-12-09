@@ -54,7 +54,7 @@ WantedBy=multi-user.target
 EOT
 
 # Configure mariadb
-apt install docker.io
+apt install docker.io -y
 docker run -p 127.0.0.1:3306:3306 --name mdb -e MARIADB_DATABASE=trojan -e MARIADB_USER=trojan -e MARIADB_PASSWORD=trojan_Gideon -e MARIADB_ROOT_PASSWORD=trojan_Gideon -v ~:/var/lib/mysql -d mariadb:latest 
 
 tee -a ~/trojan.sql > /dev/null <<EOT
