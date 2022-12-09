@@ -1,5 +1,5 @@
 #!/bin/bash
-
+add-apt-repository ppa:greaterfire/trojan
 apt update -y 
 # Install nginx
 apt install nginx -y
