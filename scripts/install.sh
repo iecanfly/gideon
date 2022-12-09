@@ -7,6 +7,8 @@ systemctl enable nginx
 systemctl start nginx
 sed -i "s/server_name _;/server_name $1.$2;/g" /etc/nginx/sites-available/default
 nginx -t
+sed '/listen [::]:443 ssl ipv6only=on; # managed by Certbot/d' /etc/nginx/sites-available/default
+sed '/listen 443 ssl; # managed by Certbot/d' /etc/nginx/sites-available/default
 systemctl restart nginx
 systemctl status nginx
 
@@ -57,7 +59,7 @@ tee -a /etc/trojan/config.json > /dev/null <<EOT
 {
     "run_type": "server",
     "local_addr": "0.0.0.0",
-    "local_port": 11443,
+    "local_port": 443,
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
