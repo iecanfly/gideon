@@ -53,6 +53,28 @@ RestartSec=1s
 WantedBy=multi-user.target
 EOT
 
+# Configure mariadb
+apt install docker.io
+docker run -p 127.0.0.1:3306:3306 --name mdb -e MARIADB_DATABASE=trojan -e MARIADB_USER=trojan -e MARIADB_PASSWORD=trojan_Gideon -e MARIADB_ROOT_PASSWORD=trojan_Gideon -v ~:/var/lib/mysql -d mariadb:latest 
+
+tee -a ~/trojan.sql > /dev/null <<EOT
+use trojan;
+
+CREATE TABLE users (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+    password CHAR(56) NOT NULL,
+    quota BIGINT NOT NULL DEFAULT 0,
+    download BIGINT UNSIGNED NOT NULL DEFAULT 0,
+    upload BIGINT UNSIGNED NOT NULL DEFAULT 0,
+    PRIMARY KEY (id),
+    INDEX (password)
+);
+EOT
+docker exec -it mdb mariadb -e "GRANT ALL ON *.* TO trojan@'%' IDENTIFIED BY 'trojan_Gideon' WITH GRANT OPTION"
+docker exec -it mdb mariadb < trojan.sql 
+
+
 # Configure trojan
 rm /etc/trojan/config.json 
 tee -a /etc/trojan/config.json > /dev/null <<EOT
@@ -95,7 +117,7 @@ tee -a /etc/trojan/config.json > /dev/null <<EOT
         "fast_open_qlen": 20
     },
     "mysql": {
-        "enabled": false,
+        "enabled": true,
         "server_addr": "127.0.0.1",
         "server_port": 3306,
         "database": "trojan",
