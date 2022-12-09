@@ -125,4 +125,4 @@ sysctl -p
 systemctl enable trojan
 systemctl start trojan
 
-
+lsof -i -P
