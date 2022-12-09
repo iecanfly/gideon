@@ -7,8 +7,8 @@ systemctl enable nginx
 systemctl start nginx
 sed -i "s/server_name _;/server_name $1.$2;/g" /etc/nginx/sites-available/default
 nginx -t
-sed 's/listen \[::\]:443 ssl ipv6only=on; # managed by Certbot//g' /etc/nginx/sites-available/default
-sed 's/listen 443 ssl; # managed by Certbot//g' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:443 ssl ipv6only=on; # managed by Certbot//g' /etc/nginx/sites-available/default
+sed -i 's/listen 443 ssl; # managed by Certbot//g' /etc/nginx/sites-available/default
 systemctl restart nginx
 systemctl status nginx
 
