@@ -63,7 +63,7 @@ tee -a /etc/trojan/config.json > /dev/null <<EOT
     "remote_addr": "127.0.0.1",
     "remote_port": 80,
     "password": [
-        "mysuperuserpassword"
+        "jQw2jjodg4ygzkzAeXUH"
     ],
     "log_level": 3,
     "ssl": {
